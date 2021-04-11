@@ -1,0 +1,29 @@
+{
+  "name": "gitfire",
+  "version": "1.0.0",
+  "description": "Just Another CDN to serve Git Content",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hrichiksite/GitFire.git"
+  },
+  "keywords": [
+    "cdn",
+    "gitfire",
+    "gitcdn"
+  ],
+  "author": "Hrichik Mazumder <me@hrichik.xyz>",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/hrichiksite/GitFire/issues"
+  },
+  "homepage": "https://github.com/hrichiksite/GitFire#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "redis": "^3.1.0"
+  }
+}
