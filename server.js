@@ -28,7 +28,7 @@ function getExtension(path) {
     return basename.slice(pos + 1);            // extract extension ignoring `.`
 }
 
-app.use('/', async (req, res) => {
+app.get('/', async (req, res) => {
     res.send("The GitFire CDN, check out gitfire.xyz for more details");
 })
 
