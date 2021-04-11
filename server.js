@@ -80,10 +80,11 @@ if(blacklist.includes(user) === false){
 })
 })
 
+app.get('/', async (req, res) => {
+    res.send("The GitFire CDN, check out gitfire.xyz for more details");
+})
+
 app.listen(port, () =>{
     console.log("App started")
 })
 
-app.get('/', async (req, res) => {
-    res.send("The GitFire CDN, check out gitfire.xyz for more details");
-})
