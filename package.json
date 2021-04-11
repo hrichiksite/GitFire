@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/hrichiksite/GitFire#readme",
   "dependencies": {
+    "@sentry/node": "^6.2.5",
+    "@sentry/tracing": "^6.2.5",
     "express": "^4.17.1",
     "node-fetch": "^2.6.1",
     "redis": "^3.1.0"

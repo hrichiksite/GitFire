@@ -2,6 +2,8 @@ const fetch = require('node-fetch');
 const express = require('express');
 const app = express();
 const redis = require("redis");
+ const Sentry = require('@sentry/node');
+ const Tracing = require("@sentry/tracing");
 const client = redis.createClient({
     url:process.env.REDIS_URL
 });
@@ -15,6 +17,23 @@ client.on('error', err => {
 const port = process.env.PORT || 3000;
 
 
+Sentry.init({
+    dsn: process.env.DSN,
+    integrations: [
+      // enable HTTP calls tracing
+      new Sentry.Integrations.Http({ tracing: true }),
+      // enable Express.js middleware tracing
+      new Tracing.Integrations.Express({ app }),
+    ],
+  
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+  });
+
+  app.use(Sentry.Handlers.requestHandler());
+  app.use(Sentry.Handlers.tracingHandler());
 
 //code from https://stackoverflow.com/questions/190852/how-can-i-get-file-extensions-with-javascript
 function getExtension(path) {
@@ -83,6 +102,15 @@ if(blacklist.includes(user) === false){
 app.get('/', async (req, res) => {
     res.send("The GitFire CDN, check out gitfire.xyz for more details");
 })
+
+app.use(Sentry.Handlers.errorHandler());
+
+app.use(function onError(err, req, res, next) {
+    // The error id is attached to `res.sentry` to be returned
+    // and optionally displayed to the user for support.
+    res.statusCode = 500;
+    res.end("500 & Dead, Please Send Us This Error Tracking ID, If this Error Occurs More than ones: " + res.sentry + "\n");
+  });
 
 app.listen(port, () =>{
     console.log("App started")
