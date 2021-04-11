@@ -28,9 +28,7 @@ function getExtension(path) {
     return basename.slice(pos + 1);            // extract extension ignoring `.`
 }
 
-app.get('/', async (req, res) => {
-    res.send("The GitFire CDN, check out gitfire.xyz for more details");
-})
+
 
 app.get('/gh/:git/:repo/:branch/*', async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", '*');
@@ -84,4 +82,8 @@ if(blacklist.includes(user) === false){
 
 app.listen(port, () =>{
     console.log("App started")
+})
+
+app.get('/', async (req, res) => {
+    res.send("The GitFire CDN, check out gitfire.xyz for more details");
 })
